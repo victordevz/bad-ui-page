@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal de Serviços Digitais</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div id="lanterna-overlay" class="hidden"></div>
+    <header>
+        <h1>Portal de Serviços Digitais</h1>
+        <p class="subtitulo">Eficiência e praticidade para seu dia a dia</p>
+        <nav>
+            <ul>
+                <li><a href="#" id="nav-home">Início</a></li>
+                <li><a href="#" id="nav-services">Serviços</a></li>
+                <li><a href="#" id="nav-contact">Contato</a></li>
+                <li><a href="#" id="nav-about">Sobre</a></li>
+                <li><button id="modo-escuro" class="modo-escuro-btn">Modo Escuro</button></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section class="destaque">
+            <h2>Cadastro de Usuário</h2>
+            <p>Preencha os dados abaixo para acessar nossos serviços exclusivos..</p>
+            
+            <form id="cadastro-form">
+                <div class="form-group">
+                    <label for="nome">Nome Completo:</label>
+                    <input type="text" id="nome" placeholder="Digite seu nome aqui..." class="input-invertido">
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" placeholder="email@exemplo.com" class="input-deslocado">
+                </div>
+                
+                <div class="form-group">
+                    <label for="senha">Senha:</label>
+                    <input type="text" id="senha" placeholder="Sua senha segura" class="senha-visivel">
+                    <small>Por segurança, sua senha será visível durante todo o cadastro.</small>
+                </div>
+                
+                <div class="form-group">
+                    <label>Data de Nascimento:</label>
+                    <div class="calendario-container">
+                        <div class="calendario-header">
+                            <button type="button" id="calendario-toggle">Selecione sua data de nascimento</button>
+                        </div>
+                        <div id="calendario" class="calendario-por-extenso">
+                            <div class="calendario-seletor">
+                                <label for="dia-select">Dia:</label>
+                                <select id="dia-select">
+                                    <option value="">Selecione o dia por extenso</option>
+                                </select>
+                                
+                                <label for="mes-select">Mês:</label>
+                                <select id="mes-select">
+                                    <option value="">Selecione o mês por extenso</option>
+                                </select>
+                                
+                                <label for="ano-select">Ano:</label>
+                                <select id="ano-select">
+                                    <option value="">Selecione o ano por extenso</option>
+                                </select>
+                            </div>
+                            <div class="data-selecionada">
+                                Data selecionada: <span id="data-formatada">Nenhuma data selecionada</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="termos">Termos de Uso:</label>
+                    <div class="termos-container">
+                        <div class="termos-texto" id="termos-texto">
+                            Carregando termos... Por favor, aguarde.
+                        </div>
+                        <label class="termos-checkbox">
+                            <input type="checkbox" id="termos" required>
+                            Li e concordo com os termos
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="form-group botoes">
+                    <button type="button" id="btn-enviar" class="botao-enviar">Cadastrar</button>
+                    <button type="reset" id="btn-limpar" class="botao-limpar">Limpar</button>
+                </div>
+            </form>
+        </section>
+        
+        <section class="beneficios">
+            <h2>Benefícios dos nossos serviços</h2>
+            <div class="cards-container">
+                <div class="card">
+                    <h3>Eficiência</h3>
+                    <p>Processos otimizados para melhor desempenho.</p>
+                </div>
+                <div class="card">
+                    <h3>Segurança</h3>
+                    <p>Proteção avançada para seus dados.</p>
+                </div>
+                <div class="card">
+                    <h3>Praticidade</h3>
+                    <p>Acesso fácil a todos os serviços.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <footer>
+        <div class="footer-content">
+            <p>© 2025 Portal de Serviços Digitais. Todos os direitos reservados.</p>
+            <p>Versão do sistema: 1.0.3 (Beta)</p>
+        </div>
+    </footer>
+    
+    <script src="js/script.js"></script>
+</body>
+</html>
