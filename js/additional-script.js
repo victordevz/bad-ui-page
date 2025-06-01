@@ -1,6 +1,9 @@
 // Funções adicionais bizarras para o site
 
 document.addEventListener("DOMContentLoaded", function() {
+    // Inicializar detecção mobile
+    inicializarDeteccaoMobile();
+    
     // Inicializar novos recursos
     setTimeout(() => {
         inicializarCaptchaImpossivel();
@@ -586,6 +589,107 @@ function inicializarFormularioReverso() {
             grupos.reverse().forEach(grupo => {
                 form.appendChild(grupo);
             });
+        }
+    }
+}
+
+// Função para detectar dispositivos móveis e mostrar aviso
+function inicializarDeteccaoMobile() {
+    const mobileWarning = document.querySelector('.mobile-warning');
+    const ignoreButton = document.getElementById('ignore-mobile-warning');
+    const deviceInfo = document.getElementById('mobile-device-info');
+    
+    // Verificar se é um dispositivo móvel
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    
+    // Forçar modo de tela cheia em dispositivos móveis para garantir que o aviso ocupa toda a tela
+    if (isMobile) {
+        document.documentElement.style.height = '100vh';
+        document.body.style.height = '100vh';
+        document.body.style.overflow = 'hidden';
+        window.scrollTo(0, 0); // Garantir que está no topo da página
+    }
+    
+    if (isMobile) {
+        // Mostrar informações detalhadas do dispositivo
+        let deviceDetails = navigator.userAgent;
+        if (deviceDetails.length > 30) {
+            deviceDetails = deviceDetails.substring(0, 30) + "...";
+        }
+        deviceInfo.textContent = deviceDetails;
+        
+        // Botão para ignorar o aviso (com efeitos irritantes)
+        if (ignoreButton) {
+            ignoreButton.addEventListener('click', function() {
+                // 50% de chance de realmente fechar o aviso
+                if (Math.random() < 0.5) {
+                    mobileWarning.style.transform = 'translateY(-100%)';
+                    setTimeout(() => {
+                        mobileWarning.style.display = 'none';
+                    }, 500);
+                    
+                    // Mostrar mensagem após fechar
+                    setTimeout(() => {
+                        alert("Você foi avisado! Este site funciona melhor em um computador de verdade. Não nos responsabilizamos pela sua experiência ruim.");
+                    }, 1000);
+                    
+                    // Adicionar aleatoriamente elementos irritantes na tela
+                    addElementosIrritantes();
+                } else {
+                    // Fingir que está fechando
+                    mobileWarning.style.opacity = '0.5';
+                    setTimeout(() => {
+                        mobileWarning.style.opacity = '1';
+                        alert("Erro ao processar sua solicitação. Por favor, tente de um computador.");
+                    }, 1000);
+                }
+            });
+        }
+        
+        // Rotação aleatória em dispositivos móveis para dificultar ainda mais
+        if (Math.random() < 0.7) {
+            document.body.style.transform = `rotate(${(Math.random() - 0.5) * 10}deg)`;
+        }
+    }
+    
+    // Função para adicionar elementos irritantes específicos para mobile
+    function addElementosIrritantes() {
+        // Fazer o site vibrar ocasionalmente
+        setInterval(() => {
+            if (Math.random() < 0.2) {
+                if ('vibrate' in navigator) {
+                    navigator.vibrate([100, 50, 200, 50, 100]);
+                }
+            }
+        }, 10000);
+        
+        // Adicionar elemento flutuante que bloqueia parte da tela
+        const elementoFlutuante = document.createElement('div');
+        elementoFlutuante.style.position = 'fixed';
+        elementoFlutuante.style.width = '150px';
+        elementoFlutuante.style.height = '100px';
+        elementoFlutuante.style.backgroundColor = 'rgba(255, 0, 0, 0.5)';
+        elementoFlutuante.style.color = 'white';
+        elementoFlutuante.style.padding = '10px';
+        elementoFlutuante.style.borderRadius = '10px';
+        elementoFlutuante.style.zIndex = '999';
+        elementoFlutuante.style.bottom = '20px';
+        elementoFlutuante.style.right = '20px';
+        elementoFlutuante.style.fontSize = '12px';
+        elementoFlutuante.style.textAlign = 'center';
+        elementoFlutuante.innerHTML = '<strong>AVISO:</strong><br>Você está usando um dispositivo não compatível!<br>Elementos do site podem estar distorcidos.';
+        document.body.appendChild(elementoFlutuante);
+        
+        // Mover o elemento flutuante aleatoriamente para ficar no caminho
+        setInterval(() => {
+            elementoFlutuante.style.bottom = `${Math.random() * 70}%`;
+            elementoFlutuante.style.right = `${Math.random() * 70}%`;
+        }, 5000);
+        
+        // Desativar o zoom em mobile para dificultar a navegação
+        const metaViewport = document.querySelector('meta[name="viewport"]');
+        if (metaViewport) {
+            metaViewport.setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no');
         }
     }
 }

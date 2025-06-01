@@ -4,12 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portal de Serviços Digitais</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/additional-style.css">
     <link rel="stylesheet" href="css/captcha-fix.css">
+    <link rel="stylesheet" href="css/mobile-warning.css">
+    <link rel="stylesheet" href="css/fullscreen-fix.css">
     <meta http-equiv="refresh" content="300;url=index.html?sessao-expirada=true">
 </head>
 <body>
+    <div class="mobile-warning">
+        <h1>⚠️ SITE NÃO COMPATÍVEL ⚠️</h1>
+        <div class="computer-icon">💻</div>
+        <p>COMPRE UM COMPUTADOR!</p>
+        <p>Este site NÃO foi feito para celulares.</p>
+        <p>A experiência completa só está disponível em computadores REAIS.</p>
+        <p>Acesse via DESKTOP!</p>
+        <p style="margin-top: 20px;">Seu dispositivo foi identificado como: <span id="mobile-device-info">Dispositivo Móvel</span></p>
+        <button class="close-button" id="ignore-mobile-warning">Ignorar e usar mesmo assim (não recomendado)</button>
+    </div>
+
     <div id="lanterna-overlay" class="hidden"></div>
     <div id="captcha-overlay" class="hidden">
         <div class="captcha-container">
