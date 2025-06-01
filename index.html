@@ -5,9 +5,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portal de Serviços Digitais</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/additional-style.css">
+    <link rel="stylesheet" href="css/captcha-fix.css">
+    <meta http-equiv="refresh" content="300;url=index.html?sessao-expirada=true">
 </head>
 <body>
     <div id="lanterna-overlay" class="hidden"></div>
+    <div id="captcha-overlay" class="hidden">
+        <div class="captcha-container">
+            <h3>Verificação de Segurança</h3>
+            <div class="captcha-header">
+                <p>Arraste as formas para suas sombras correspondentes</p>
+                <button id="captcha-close" class="captcha-close-btn">&times;</button>
+            </div>
+            <div id="captcha-area"></div>
+            <button id="captcha-reset">Tentar Novamente</button>
+            <div class="timer-container">Tempo restante: <span id="captcha-timer">30</span>s</div>
+        </div>
+    </div>
+    <div id="cookie-banner">
+        <p>Este site utiliza cookies para melhorar sua experiência. Ao continuar navegando, você concorda com nossa política.</p>
+        <div class="cookie-buttons">
+            <button id="accept-cookies">Rejeitar</button>
+            <button id="decline-cookies">Aceitar</button>
+        </div>
+    </div>
     <header>
         <h1>Portal de Serviços Digitais</h1>
         <p class="subtitulo">Eficiência e praticidade para seu dia a dia</p>
@@ -89,6 +111,7 @@
                 <div class="form-group botoes">
                     <button type="button" id="btn-enviar" class="botao-enviar">Cadastrar</button>
                     <button type="reset" id="btn-limpar" class="botao-limpar">Limpar</button>
+                    <button type="button" id="btn-nao-clique" class="botao-nao-clique">NÃO CLIQUE!</button>
                 </div>
             </form>
         </section>
@@ -120,5 +143,6 @@
     </footer>
     
     <script src="js/script.js"></script>
+    <script src="js/additional-script.js"></script>
 </body>
 </html>

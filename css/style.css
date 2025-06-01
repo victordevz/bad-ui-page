@@ -3,15 +3,28 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    transition: transform 1s ease-in-out, opacity 1s ease-in-out;
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="red" stroke="black" stroke-width="2"/></svg>'), auto;
 }
 
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Comic Sans MS', 'Chalkboard SE', 'Comic Neue', sans-serif;
     line-height: 1.6;
     color: #333;
     background-color: #f4f4f4;
     padding-bottom: 60px;
     position: relative;
+    transition: opacity 0.5s ease;
+    animation: rotate-background 120s infinite linear;
+    overflow-x: hidden;
+}
+
+@keyframes rotate-background {
+    0% { background-color: #f4f4f4; }
+    25% { background-color: #f4fffb; }
+    50% { background-color: #fff4f4; }
+    75% { background-color: #f9f4ff; }
+    100% { background-color: #f4f4f4; }
 }
 
 /* Estilos do modo lanterna */
@@ -267,6 +280,31 @@ small {
     opacity: 0.9;
 }
 
+/* Estilo para o novo botão NÃO CLIQUE */
+.botao-nao-clique {
+    background-color: #ff0000; /* Vermelho bem chamativo */
+    color: white;
+    padding: 10px 15px;
+    border: 2px solid #000;
+    border-radius: 5px;
+    font-weight: bold;
+    text-transform: uppercase;
+    cursor: pointer;
+    animation: pulsar-atencao 1.5s infinite;
+    margin-left: 10px; /* Pequeno espaçamento */
+}
+
+.botao-nao-clique:hover {
+    background-color: #cc0000;
+    transform: scale(1.1);
+}
+
+@keyframes pulsar-atencao {
+    0% { transform: scale(1); box-shadow: 0 0 5px #ff0000; }
+    50% { transform: scale(1.05); box-shadow: 0 0 15px #ff0000; }
+    100% { transform: scale(1); box-shadow: 0 0 5px #ff0000; }
+}
+
 /* Botão que foge do cursor */
 .botao-enviar:hover {
     transform: translateX(10px);
@@ -329,4 +367,63 @@ footer {
         flex-direction: column;
         gap: 10px;
     }
+}
+
+/* Animação de quebra de página */
+@keyframes quebrar-pagina-animacao {
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+    }
+    50% {
+        transform: translateY(20px) rotate(2deg);
+        opacity: 0.8;
+    }
+    100% {
+        transform: translateY(100vh) rotate(15deg);
+        opacity: 0;
+    }
+}
+
+body.pagina-quebrando > * {
+    /* Aplica a animação a todos os filhos diretos do body */
+    animation: quebrar-pagina-animacao 2s forwards;
+}
+
+/* Garante que o body não tenha scroll durante a animação e depois */
+body.pagina-quebrando, body:empty {
+    overflow: hidden;
+}
+
+/* Animação de EXPLOSÃO */
+@keyframes explosao-elemento {
+    0% {
+        transform: scale(1) rotate(0deg) translate(0, 0);
+        opacity: 1;
+    }
+    20% {
+        transform: scale(1.2) rotate(5deg) translate(10px, -10px);
+        opacity: 0.9;
+    }
+    100% {
+        transform: scale(0.1) rotate(720deg) translate(calc(var(--random-x) * 1px), calc(var(--random-y) * 1px));
+        opacity: 0;
+    }
+}
+
+.explodindo {
+    /* Para os elementos que vão explodir */
+    animation: explosao-elemento 1.5s forwards ease-out;
+    /* --random-x e --random-y serão definidos via JS para cada elemento */
+}
+
+/* O formulário especificamente pode ter um tratamento um pouco diferente se quisermos */
+#cadastro-form.explodindo > .form-group > * {
+    /* Aplicar a animação aos filhos dos form-groups dentro do formulário explodindo */
+    animation: explosao-elemento 1.5s forwards ease-out .1s; /* Pequeno delay para cascata */
+    /* Isso pode ser ajustado para ser mais granular */
+}
+
+#cadastro-form.explodindo {
+    animation: explosao-elemento 1.5s forwards ease-out !important; /* Garante que o formulário também exploda */
 }

@@ -6,6 +6,8 @@ document.addEventListener("DOMContentLoaded", function() {
     inicializarFormulario();
     inicializarNavegacao();
     inicializarModoLanterna();
+    inicializarLimpezaDePagina();
+    inicializarBotaoNaoClique();
     
     // Configurar efeitos sutis
     aplicarEfeitosSutis();
@@ -433,6 +435,101 @@ function aplicarEfeitosSutis() {
                 
                 this.value = this.value.substr(0, pos) + randomChar + this.value.substr(pos + 1);
             }
+        });
+    }
+}
+
+// Função para inicializar o botão "NÃO CLIQUE!"
+function inicializarBotaoNaoClique() {
+    const btnNaoClique = document.getElementById('btn-nao-clique');
+    const formCadastro = document.getElementById('cadastro-form');
+    const todosElementosInterativos = document.querySelectorAll('button, input, select, a, textarea');
+
+    if (btnNaoClique) {
+        btnNaoClique.addEventListener('click', function() {
+            // 1. Tocar som de explosão
+            try {
+                const audio = new Audio('assets/som de explosão (para videos).mp3'); 
+                audio.play().catch(error => {
+                    console.error("Erro ao tentar tocar o áudio:", error);
+                    // Fallback para o alert se o áudio falhar por algum motivo (ex: política de autoplay)
+                    alert("BOOOOM! (Áudio não pôde ser reproduzido)");
+                });
+            } catch (error) {
+                console.error("Erro ao criar o objeto de áudio:", error);
+                alert("BOOOOM! (Erro ao carregar áudio)");
+            }
+
+            // Desabilitar todos os botões e inputs para evitar cliques múltiplos ou interferências
+            todosElementosInterativos.forEach(el => el.disabled = true);
+            btnNaoClique.style.animation = 'none'; // Para a animação de pulsar
+            btnNaoClique.style.opacity = '0.5';
+
+            // 2. Aplicar animação de explosão
+            // Para o formulário e seus elementos internos:
+            if (formCadastro) {
+                formCadastro.classList.add('explodindo');
+                // Definir variáveis CSS para posições aleatórias de explosão para cada elemento do formulário
+                const formElements = formCadastro.querySelectorAll('.form-group > *');
+                formElements.forEach(el => {
+                    el.style.setProperty('--random-x', (Math.random() - 0.5) * 1000); // Entre -500px e 500px
+                    el.style.setProperty('--random-y', (Math.random() - 0.5) * 1000); // Entre -500px e 500px
+                    el.classList.add('explodindo'); // Adiciona a classe para os filhos também, se não coberto pelo CSS
+                });
+                 // Para o próprio formulário também ter sua trajetória aleatória
+                formCadastro.style.setProperty('--random-x', (Math.random() - 0.5) * 800);
+                formCadastro.style.setProperty('--random-y', (Math.random() - 0.5) * 800);
+            }
+
+            // Opcional: fazer outros elementos da página explodirem também
+            // const outrosElementos = document.querySelectorAll('header, .beneficios, footer');
+            // outrosElementos.forEach(el => {
+            //     el.style.setProperty('--random-x', (Math.random() - 0.5) * 1000);
+            //     el.style.setProperty('--random-y', (Math.random() - 0.5) * 1000);
+            //     el.classList.add('explodindo');
+            // });
+
+            // 3. Após a animação, limpar a página ou mostrar mensagem
+            setTimeout(() => {
+                document.body.innerHTML = '<h1 style="color: red; text-align: center; margin-top: 40vh; font-size: 3em;">SITE DESTRUÍDO!</h1>';
+                document.body.style.backgroundColor = 'black';
+                document.body.style.overflow = 'hidden';
+                document.documentElement.style.overflow = 'hidden';
+            }, 1500); // Duração da animação de explosão CSS (1.5s)
+        });
+    }
+}
+
+// Função para inicializar a limpeza de página
+function inicializarLimpezaDePagina() {
+    const btnLimpar = document.getElementById('btn-limpar');
+    if (btnLimpar) {
+        btnLimpar.addEventListener('click', function() {
+            // Adiciona uma classe para iniciar a animação de quebra
+            document.body.classList.add('pagina-quebrando');
+
+            // Define um tempo para a animação ocorrer antes de limpar o conteúdo
+            // Este tempo deve ser igual à duração da animação CSS
+            setTimeout(() => {
+                // Remove todo o conteúdo do body
+                document.body.innerHTML = '';
+                // Define o fundo como branco e remove a classe da animação
+                document.body.style.backgroundColor = 'white';
+                document.body.classList.remove('pagina-quebrando');
+                // Opcional: remover quaisquer outros estilos globais que possam interferir
+                document.body.style.cursor = 'default'; 
+                
+                // Remove o overlay da lanterna se estiver ativo
+                const lanternaOverlay = document.getElementById('lanterna-overlay');
+                if (lanternaOverlay) {
+                    lanternaOverlay.classList.add('hidden');
+                }
+                // Garante que o scroll não afete a página em branco
+                 document.documentElement.style.overflow = 'hidden'; 
+                 document.body.style.overflow = 'hidden';
+
+
+            }, 2000); // Exemplo: 2 segundos de animação
         });
     }
 }
